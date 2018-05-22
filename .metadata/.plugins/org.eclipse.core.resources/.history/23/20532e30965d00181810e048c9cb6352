@@ -1,0 +1,95 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+//import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+
+
+public class MainMenu{
+    //private static final long serialVersionUID = 1L;
+
+    JFrame frame;
+
+    int screenWidth = 475;
+    int screenHeight = 300;
+
+    int buttonWidth = 200;
+    int buttonHeight = 40;
+
+    JButton Play, Quit, twoPlayers;
+    //JCheckBox twoPlayers, limitFrameRate;
+
+
+    public MainMenu(){
+        frame = new JFrame();
+        frame.getContentPane().setLayout(null);
+
+        addButtons();
+        addActions();
+
+        Play.setBounds((screenWidth - buttonWidth)/2, 20, buttonWidth, buttonHeight);
+        twoPlayers.setBounds((screenWidth - buttonWidth)/2, 75, buttonWidth, buttonHeight);
+        Quit.setBounds((screenWidth - buttonWidth)/2, 200, buttonWidth, buttonHeight);
+        //twoPlayers.setBounds(0, 95, buttonWidth, buttonHeight);
+        //limitFrameRate.setBounds(0, 140, buttonWidth*3, buttonHeight);
+
+
+        //placing buttons
+        frame.getContentPane().add(Play);
+        frame.getContentPane().add(Quit);
+        frame.getContentPane().add(twoPlayers);
+        //getContentPane().add(limitFrameRate);
+
+        //JFrame stuff
+        frame.pack();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setSize(screenWidth, screenHeight);
+        frame.setTitle("Pong");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+
+    }
+
+    private void addButtons(){
+        Play = new JButton("One Player");
+        twoPlayers = new JButton("Two Players");
+        Quit = new JButton("Quit");
+        //twoPlayers = new JCheckBox("2 Players");
+        //limitFrameRate = new JCheckBox("limitFrameRate");
+
+    }
+
+    private void addActions(){
+
+        Play.addActionListener(new ActionListener(){
+          public void actionPerformed(ActionEvent e){
+              frame.dispose();
+              Game game = new Game();
+              game.ai.isTwoPlayer = false;
+              game.start();
+          }
+        });
+
+        twoPlayers.addActionListener(new ActionListener(){
+          public void actionPerformed(ActionEvent e){
+              frame.dispose();
+              Game game = new Game();
+              game.ai.isTwoPlayer = true;
+              game.start();
+          }
+        });
+
+
+        Quit.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                System.exit(0);
+            }
+        });
+
+    }
+
+
+
+}
